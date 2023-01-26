@@ -6,7 +6,7 @@ networks:
       - subnet: 172.17.0.0/24
 services:
   server:
-    image: "enelg/api-server:latest"
+    image: "Lazlo1400/api-server:latest"
     container_name: server
     restart: unless-stopped
     stdin_open: true
@@ -15,7 +15,7 @@ services:
       net:
         ipv4_address:172.17.0.2
   client:
-    image: "enelg/api-client:latest"
+    image: "Lazlo1400/api-client:latest"
     container_name: client
     restart: unless-stopped
     stdin_open: true
