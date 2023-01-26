@@ -1,14 +1,29 @@
-version: "3"
+version: '3'
+networks:
+  net:
+    ipam:
+      config:
+      - subnet: 172.17.0.0/24
 services:
   server:
-    build:
-      context: .
-      dockerfile: Dockerfile-server
-    ports:
-      - "5000:5000"
+    image: "enelg/api-server:latest"
+    container_name: server
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      net:
+        ipv4_address:172.17.0.2
   client:
-    build:
-      context: .
-      dockerfile: Dockerfile-client
+    image: "enelg/api-client:latest"
+    container_name: client
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    environment:
+      - SERVER_IP=172.17.0.2
     depends_on:
-      - server
+      - "server"
+    networks:
+      net:
+        ipv4_address: 172.17.0.3
