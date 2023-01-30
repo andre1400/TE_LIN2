@@ -3,27 +3,27 @@ networks:
   net:
     ipam:
       config:
-      - subnet: 172.17.0.0/24
+      - subnet: 172.32.0.0/24
 services:
-  server:
-    image: "Lazlo1400/api-server:latest"
+  lin2-server:
+    build:
+      context: "./api-server"
     container_name: server
     restart: unless-stopped
     stdin_open: true
     tty: true
     networks:
       net:
-        ipv4_address:172.17.0.2
-  client:
-    image: "Lazlo1400/api-client:latest"
+        ipv4_address: 172.32.0.2
+  lin2-client:
+    build:
+      context: "./api-client"
     container_name: client
     restart: unless-stopped
     stdin_open: true
     tty: true
-    environment:
-      - SERVER_IP=172.17.0.2
     depends_on:
-      - "server"
+      - "lin2-server"
     networks:
       net:
-        ipv4_address: 172.17.0.3
+        ipv4_address: 172.32.0.3
