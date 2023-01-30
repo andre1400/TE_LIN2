@@ -1,4 +1,4 @@
 FROM python:3-alpine
-COPY . /app
-WORKDIR /app
-ENTRYPOINT ["python3","socket_client.py"]
+COPY socket_client.py socket_client.py
+EXPOSE 5000
+CMD ["python3", "socket_client.py"]
